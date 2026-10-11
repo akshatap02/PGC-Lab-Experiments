@@ -68,6 +68,25 @@ Speedup = sequential time / parallel time.
 
 CUDA kernel-only time was 0.146443 s. The 0.165004 s figure also includes the host-to-device and device-to-host copies.
 
+## Screenshots
+
+Part A, sequential run in WSL2 Ubuntu (4000 x 4000, `C[0][0] = 4000.00`):
+
+![sequential](screenshots/part_a_sequential.png)
+
+Part B, OpenMP run with 8 threads (`nproc` shows 16 logical CPUs):
+
+![openmp](screenshots/part_b_openmp.png)
+
+Part C, MPI cluster setup. Ping from the master VM to the three workers, 0% packet loss:
+
+![ping](screenshots/part_c_ping_from_master.png)
+
+Hostname and IP set on worker1 and worker3:
+
+![worker1](screenshots/part_c_worker1_hostname.png)
+![worker3](screenshots/part_c_worker3_hostname.png)
+
 ## Observations
 
 - OpenMP got close to linear speedup on 8 threads because the threads share memory and nothing has to be copied.
