@@ -53,8 +53,7 @@ old value and both write back the same new one. A mutex (Pthreads) or `#pragma o
 
 ## Performance results
 
-Run on a MacBook with an Apple M4 Pro (12 cores), macOS, `cc` (clang) with libomp. Raw output is in [`logs/`](logs).
-With 16 threads there are more threads than cores, so that row is oversubscribed.
+Run on a MacBook with an Apple M4 Pro (12 cores), macOS, `cc` (clang) with libomp. With 16 threads there are more threads than cores, so that row is oversubscribed.
 
 Sequential baseline: 0.837061 s (average of 5 runs: 0.861, 0.835, 0.830, 0.827, 0.832).
 

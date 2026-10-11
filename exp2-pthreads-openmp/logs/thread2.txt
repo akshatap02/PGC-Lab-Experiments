@@ -1,5 +1,0 @@
-Hello from Thread 1
-Hello from Thread 2
-Hello from Thread 3
-Hello from Thread 4
-All threads have finished.

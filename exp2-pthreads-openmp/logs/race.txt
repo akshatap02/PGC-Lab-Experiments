@@ -1,6 +1,0 @@
-Expected counter = 400000
-Actual counter   = 142456
-Expected counter = 400000
-Actual counter   = 112586
-Expected counter = 400000
-Actual counter   = 114242

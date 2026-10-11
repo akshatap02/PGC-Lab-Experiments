@@ -1,9 +1,0 @@
-Thread 0 processing array[0] = 10
-Thread 6 processing array[6] = 70
-Thread 4 processing array[4] = 50
-Thread 3 processing array[3] = 40
-Thread 2 processing array[2] = 30
-Thread 1 processing array[1] = 20
-Thread 7 processing array[7] = 80
-Thread 5 processing array[5] = 60
-Total sum = 360

@@ -30,7 +30,7 @@ A second experiment covers Pthreads and OpenMP basics: thread creation, race con
 
 \* uses the reference sequential time of 244.12 s.
 
-Screenshots and the chart are in [exp1-matrix-multiplication](exp1-matrix-multiplication).
+Source code is in [src](src), screenshots and the chart are in [images](images).
 
 ## Discussion
 

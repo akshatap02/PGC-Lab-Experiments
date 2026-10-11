@@ -1,8 +1,0 @@
-Thread 0 completed Stage 1
-Thread 3 completed Stage 1
-Thread 2 completed Stage 1
-Thread 1 completed Stage 1
-Thread 0 started Stage 2
-Thread 3 started Stage 2
-Thread 2 started Stage 2
-Thread 1 started Stage 2
