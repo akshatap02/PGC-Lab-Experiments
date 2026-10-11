@@ -1,0 +1,2 @@
+Expected counter = 400000
+Actual counter   = 400000

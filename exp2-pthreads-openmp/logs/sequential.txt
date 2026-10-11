@@ -1,0 +1,10 @@
+Result = 499999999500.00
+Execution time = 0.861375 seconds
+Result = 499999999500.00
+Execution time = 0.834597 seconds
+Result = 499999999500.00
+Execution time = 0.830196 seconds
+Result = 499999999500.00
+Execution time = 0.827101 seconds
+Result = 499999999500.00
+Execution time = 0.832037 seconds

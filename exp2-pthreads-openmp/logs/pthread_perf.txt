@@ -1,0 +1,15 @@
+threads=1
+Enter number of threads: Result = 499999999500.00
+Execution time = 0.862403 seconds
+threads=2
+Enter number of threads: Result = 499999999500.00
+Execution time = 0.426579 seconds
+threads=4
+Enter number of threads: Result = 499999999500.00
+Execution time = 0.227142 seconds
+threads=6
+Enter number of threads: Result = 499999999500.00
+Execution time = 0.157374 seconds
+threads=16
+Enter number of threads: Result = 499999999500.00
+Execution time = 0.118025 seconds

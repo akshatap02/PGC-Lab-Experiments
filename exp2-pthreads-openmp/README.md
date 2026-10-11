@@ -48,32 +48,33 @@ gcc omp_perf.c -o omp_perf -fopenmp && ./omp_perf
 ## Race condition
 
 Four threads each add 1 to a shared counter 100000 times, so the answer should be 400000.
-Without protection the printed value is lower and changes from run to run, because two threads can read the same
+Without protection the printed value is lower and changes from run to run (my three Pthreads runs gave 142456, 112586, 114242), because two threads can read the same
 old value and both write back the same new one. A mutex (Pthreads) or `#pragma omp critical` (OpenMP) makes it 400000 every time.
 
 ## Performance results
 
-The timings below are reference values for these programs on a 16-thread machine, not my own runs.
+Run on a MacBook with an Apple M4 Pro (12 cores), macOS, `cc` (clang) with libomp. Raw output is in [`logs/`](logs).
+With 16 threads there are more threads than cores, so that row is oversubscribed.
 
-Sequential baseline: 1.353219 s (average of 5 runs).
+Sequential baseline: 0.837061 s (average of 5 runs: 0.861, 0.835, 0.830, 0.827, 0.832).
 
 | Threads | Pthreads (s) | OpenMP (s) |
 |---|---|---|
-| 1 | 1.348142 | 1.409294 |
-| 2 | 0.680737 | 0.715560 |
-| 4 | 0.358872 | 0.360803 |
-| 6 | 0.241345 | 0.241608 |
-| 16 | 0.144812 | 0.140692 |
+| 1 | 0.862403 | 0.893458 |
+| 2 | 0.426579 | 0.448585 |
+| 4 | 0.227142 | 0.231630 |
+| 6 | 0.157374 | 0.158595 |
+| 16 | 0.118025 | 0.119778 |
 
 Speedup = sequential time / parallel time. Efficiency = speedup / threads.
 
 | Threads | Pthreads speedup | OpenMP speedup | Pthreads efficiency | OpenMP efficiency |
 |---|---|---|---|---|
-| 1 | 1.004x | 0.960x | 100.38% | 96.02% |
-| 2 | 1.988x | 1.891x | 99.39% | 94.56% |
-| 4 | 3.771x | 3.751x | 94.27% | 93.76% |
-| 6 | 5.608x | 5.601x | 93.45% | 93.35% |
-| 16 | 9.345x | 9.618x | 58.40% | 60.11% |
+| 1 | 0.971x | 0.937x | 97.06% | 93.69% |
+| 2 | 1.962x | 1.866x | 98.11% | 93.30% |
+| 4 | 3.685x | 3.614x | 92.13% | 90.34% |
+| 6 | 5.319x | 5.278x | 88.65% | 87.97% |
+| 16 | 7.092x | 6.988x | 44.33% | 43.68% |
 
 ![execution time](graphs/execution_time.png)
 ![speedup](graphs/speedup.png)
@@ -93,6 +94,6 @@ Speedup = sequential time / parallel time. Efficiency = speedup / threads.
 ## Conclusion
 
 Both libraries cut the run time a lot as threads were added, with almost the same numbers.
-Speedup is not linear: at 16 threads it is about 9.6x, not 16x, because of thread management, scheduling,
-memory access and the part of the program that is not parallel. Shared data needs a mutex or `critical`,
+Speedup is not linear: at 16 threads it is about 7x, not 16x. This machine has 12 cores, so 16 threads share them, and there is also
+thread management, scheduling, memory access and the part of the program that is not parallel. Shared data needs a mutex or `critical`,
 otherwise the result is wrong.

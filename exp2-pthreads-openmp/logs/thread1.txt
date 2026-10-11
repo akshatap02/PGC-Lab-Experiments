@@ -1,0 +1,2 @@
+Hello from the thread!
+Main thread finished.

@@ -1,0 +1,5 @@
+Thread 1 calculated sum = 30
+Thread 3 calculated sum = 110
+Thread 2 calculated sum = 70
+Thread 4 calculated sum = 150
+Total sum = 360
