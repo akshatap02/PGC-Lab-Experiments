@@ -57,14 +57,19 @@ nvcc -O2 src/matrix_cuda.cu -o matrix_cuda
 
 ## Results
 
-Speedup = sequential time / parallel time.
+Speedup = sequential time / parallel time. Sequential and OpenMP were run on my machine (screenshots below).
+The MPI and CUDA rows are reference values for the same program and are marked as such, until I add my own runs.
 
-| Implementation | Resources | Time | Speedup | C[0][0] |
-|---|---|---|---|---|
-| Sequential | 1 CPU core | 244.120000 s | 1.00x | 4000.00 |
-| OpenMP | 8 threads | 30.830434 s | 7.92x | 4000.00 |
-| MPI | 4 processes / 4 VMs | 92.979510 s | 2.63x | 4000.00 |
-| CUDA | NVIDIA RTX 4500 Ada | 0.165004 s | 1479.48x | 4000.00 |
+| Implementation | Resources | Time | Speedup | C[0][0] | Source |
+|---|---|---|---|---|---|
+| Sequential | 1 CPU core | 321.416197 s | 1.00x | 4000.00 | measured |
+| OpenMP | 8 threads | 111.864688 s | 2.87x | 4000.00 | measured |
+| MPI | 4 processes / 4 VMs | 92.979510 s | 2.63x* | 4000.00 | reference |
+| CUDA | NVIDIA RTX 4500 Ada | 0.165004 s | 1479.48x* | 4000.00 | reference |
+
+\* Speedup for the reference rows uses the reference sequential time (244.12 s), so it is not comparable with my baseline.
+
+![execution time and speedup](results/comparison.png)
 
 CUDA kernel-only time was 0.146443 s. The 0.165004 s figure also includes the host-to-device and device-to-host copies.
 
@@ -89,10 +94,12 @@ Hostname and IP set on worker1 and worker3:
 
 ## Observations
 
-- OpenMP got close to linear speedup on 8 threads because the threads share memory and nothing has to be copied.
-- MPI was slower than OpenMP even with 4 workers, because A, B and C have to travel over the virtual network.
-- CUDA was the fastest by a large margin since the problem maps directly to one thread per output element.
-- All four versions gave the same check value, 4000.00.
+- OpenMP with 8 threads gave 2.87x over sequential on my machine (321.4 s to 111.9 s). That is well below 8x. Every thread reads
+  matrix B column by column, which is a poor memory access pattern, so the threads are limited by memory bandwidth and cache misses
+  more than by compute.
+- MPI has to scatter A, broadcast all of B and gather C over the virtual network, which is overhead the shared-memory versions do not have.
+- CUDA is the fastest by a large margin because the problem maps to one GPU thread per output element.
+- All versions give the same check value, 4000.00.
 
 ## Troubleshooting
 

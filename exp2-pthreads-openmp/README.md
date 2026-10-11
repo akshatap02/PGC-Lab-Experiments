@@ -53,6 +53,8 @@ old value and both write back the same new one. A mutex (Pthreads) or `#pragma o
 
 ## Performance results
 
+The timings below are reference values for these programs on a 16-thread machine, not my own runs.
+
 Sequential baseline: 1.353219 s (average of 5 runs).
 
 | Threads | Pthreads (s) | OpenMP (s) |
